@@ -13,7 +13,7 @@ var mountFolder = function (connect, dir) {
 
 module.exports = function (grunt) {
     // load all grunt tasks
-    require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    require('matchdep').filter('grunt-*').forEach(grunt.loadNpmTasks);
 
     // configurable paths
     var yeomanConfig = {
@@ -53,7 +53,7 @@ module.exports = function (grunt) {
             compile: {
                 src: ['dist/index.html'],
                 overwrite: true,                 // overwrite matched source files
-                replacements: [{ 
+                replacements: [{
                     from: "window.isOptimized = false;",
                     to: "window.isOptimized = true;"
                 }]
@@ -79,7 +79,7 @@ module.exports = function (grunt) {
         },
         connect: {
             options: {
-                port: 9000,
+                port: process.env.PORT || 9000,
                 // change this to '0.0.0.0' to access the server from outside
                 hostname: '0.0.0.0'
             },
@@ -116,7 +116,7 @@ module.exports = function (grunt) {
         },
         open: {
             server: {
-                path: 'http://localhost:<%= connect.options.port %>'
+                path: 'http://host:<%= connect.options.port %>'
             }
         },
         clean: {
